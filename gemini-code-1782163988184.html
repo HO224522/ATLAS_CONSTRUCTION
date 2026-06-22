@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Global Construction | Accueil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #0b0c10;
+            --primary-orange: #e65f2b; 
+            --grid-line: rgba(11, 12, 16, 0.08);
+            --font-swiss: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-swiss);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.35;
+            overflow-x: hidden;
+        }
+
+        /* --- GRILLE STRICTE SUISSE --- */
+        .swiss-grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 1600px;
+            margin: 0 auto;
+            border-left: 1px solid var(--grid-line);
+            border-right: 1px solid var(--grid-line);
+            position: relative;
+        }
+
+        /* Lignes d'alignement verticales */
+        .swiss-grid-container::before,
+        .swiss-grid-container::after,
+        .grid-line-3 {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: var(--grid-line);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .swiss-grid-container::before { left: 25%; }
+        .swiss-grid-container::after { left: 50%; }
+        .grid-line-3 { left: 75%; }
+
+        .grid-block {
+            border-bottom: 1px solid var(--grid-line);
+            padding: 50px 40px;
+        }
+
+        /* --- EN-TÊTE & LOGO OFFICIEL --- */
+        header.grid-block {
+            grid-column: span 4;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 0;
+            align-items: center;
+        }
+
+        .logo-box {
+            grid-column: span 1;
+            padding: 30px 40px;
+            border-right: 1px solid var(--grid-line);
+            display: flex;
+            align-items: center;
+        }
+
+        /* Extraction dynamique du logo depuis le fichier source fourni */
+        .official-logo {
+            width: 100%;
+            max-width: 180px;
+            height: 70px;
+            object-fit: contain;
+            background: url('VID-20260622-WA0026.mp4#t=0.01') no-repeat center;
+            background-size: contain;
+        }
+
+        /* NAVIGATION PAR ONGLETS */
+        nav.nav-tabs {
+            grid-column: span 3;
+            display: flex;
+            height: 100%;
+        }
+
+        nav.nav-tabs a {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            border-right: 1px solid var(--grid-line);
+            transition: all 0.2s ease;
+        }
+
+        nav.nav-tabs a:last-child {
+            border-right: none;
+        }
+
+        nav.nav-tabs a:hover, nav.nav-tabs a.active {
+            background-color: var(--text-color);
+            color: #fff;
+        }
+
+        /* --- HERO: TITRE FONCTIONNEL & VISION --- */
+        .hero-title-area {
+            grid-column: span 3;
+            border-right: 1px solid var(--grid-line);
+            padding: 100px 40px;
+        }
+
+        .hero-title-area h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .hero-title-area span {
+            color: var(--primary-orange);
+        }
+
+        .hero-image-area {
+            grid-column: span 1;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+        }
+
+        /* Extraction de la perspective immobilière du projet d'architecte */
+        .architecture-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            background: url('VID-20260622-WA0026.mp4#t=0.02') no-repeat center;
+            background-size: cover;
+        }
+
+        /* --- SECTION EXTRAITE DE L'AFFICHE --- */
+        .poster-info-left {
+            grid-column: span 2;
+            border-right: 1px solid var(--grid-line);
+            background-color: var(--text-color);
+            color: #fff;
+        }
+
+        .poster-info-left h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .poster-info-left p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .poster-info-right {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slogan-box {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.4;
+            border-left: 5px solid var(--primary-orange);
+            padding-left: 25px;
+        }
+
+        /* --- ONGLET : NOS RÉALISATIONS --- */
+        .section-header {
+            grid-column: span 4;
+            background-color: #ededed;
+            padding: 20px 40px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            color: rgba(0,0,0,0.6);
+        }
+
+        .project-card {
+            grid-column: span 2;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .project-card:first-child {
+            border-right: 1px solid var(--grid-line);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            min-height: 255px;
+            object-fit: cover;
+            background-color: #ddd;
+        }
+
+        .project-details {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-details h4 {
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        /* --- PILIERS D'ENGAGEMENT --- */
+        .value-card {
+            grid-column: span 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+        }
+        .value-card:not(:last-child) { border-right: 1px solid var(--grid-line); }
+        .value-card h3 { font-size: 1.4rem; text-transform: uppercase; font-weight: 800; margin-bottom: 10px;}
+        .value-card p { font-size: 0.9rem; opacity: 0.7; }
+        .value-num { font-family: monospace; color: var(--primary-orange); font-weight: 700; }
+
+        /* --- ONGLET : AVIS & RETOURS CLIENTS --- */
+        .review-card {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 240px;
+        }
+
+        .review-card:first-child {
+            border-right: 1px solid var(--grid-line);
+        }
+
+        .review-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .review-author {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        .review-author span {
+            color: var(--primary-orange);
+            display: block;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        /* --- PIED DE PAGE --- */
+        footer.grid-block {
+            grid-column: span 4;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: #000;
+            color: #fff;
+            padding: 60px 0;
+        }
+
+        .footer-col { padding: 0 40px; }
+        .footer-col:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.1); }
+        .footer-col h5 { color: var(--primary-orange); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 0.1em;}
+        .footer-col p, .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px;}
+
+        /* --- RESPONSIVE STRUCTURALADAPTATION --- */
+        @media (max-width: 1024px) {
+            .swiss-grid-container { grid-template-columns: repeat(2, 1fr); }
+            .swiss-grid-container::after, .grid-line-3 { display: none; }
+            header.grid-block, .hero-title-area, .section-header, .project-card, .review-card, footer.grid-block { grid-column: span 2; }
+            nav.nav-tabs { grid-column: span 4; border-top: 1px solid var(--grid-line); height: 60px;}
+            .logo-box { grid-column: span 4; border-right: none; }
+            .hero-image-area, .value-card { grid-column: span 1; }
+            .value-card:nth-child(even) { border-right: none; }
+            .project-card { grid-template-columns: 1fr; border-right: none !important; border-bottom: 1px solid var(--grid-line); }
+            .review-card:first-child { border-right: none; border-bottom: 1px solid var(--grid-line); }
+            footer.grid-block { grid-template-columns: repeat(2, 1fr); gap: 40px 0; }
+            .footer-col:nth-child(2) { border-right: none; }
+        }
+
+        @media (max-width: 640px) {
+            .swiss-grid-container { grid-template-columns: 1fr; }
+            .swiss-grid-container::before { display: none; }
+            header.grid-block, nav.nav-tabs, .hero-title-area, .hero-image-area, .poster-info-left, .poster-info-right, .project-card, .value-card, .review-card, footer.grid-block { grid-column: span 1; }
+            nav.nav-tabs { flex-direction: column; height: auto; }
+            nav.nav-tabs a { padding: 15px 0; border-right: none; border-bottom: 1px solid var(--grid-line); }
+            .value-card { border-right: none !important; }
+            footer.grid-block { grid-template-columns: 1fr; }
+            .footer-col { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 25px; }
+            .footer-col:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="swiss-grid-container">
+        <div class="grid-line-3"></div>
+
+        <!-- EN-TÊTE CONFIGURÉ AVEC LOGO & ONGLETS -->
+        <header class="grid-block">
+            <div class="logo-box">
+                <div class="official-logo" aria-label="Atlas Global Construction"></div>
+            </div>
+            <nav class="nav-tabs">
+                <a href="#accueil" class="active">Accueil</a>
+                <a href="#realisations">Nos Réalisations</a>
+                <a href="#avis">Avis Clients</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <!-- ZONE HERO ASYMÉTRIQUE -->
+        <section id="accueil" class="grid-block hero-title-area">
+            <h1>L'excellence<br>en bâtiment <span>&amp;</span><br>infrastructure.</h1>
+        </section>
+        <div class="grid-block hero-image-area">
+            <div class="architecture-preview"></div>
+        </div>
+
+        <!-- ÉLÉMENTS TEXTUELS DE L'AFFICHE -->
+        <div class="grid-block poster-info-left">
+            <h2>ATLAS GLOBAL CONSTRUCTION</h2>
+            <p>Votre partenaire de confiance pour des projets solides, durables et innovants.</p>
+        </div>
+        <div class="grid-block poster-info-right">
+            <div class="slogan-box">
+                L'EXCELLENCE EN CONSTRUCTION,<br>LA CONFIANCE EN PARTENARIAT.
+            </div>
+        </div>
+
+        <!-- 4 ENGAGEMENTS TECHNIQUES DE L'AFFICHE -->
+        <div class="grid-block value-card">
+            <span class="value-num">01 /</span>
+            <div>
+                <h3>Qualité</h3>
+                <p>Des réalisations conformes aux standards les plus élevés du secteur.</p>
+            </div>
+        </div>
+        <div class="grid-block value-card">
+            <span class="value-num">02 /</span>
+            <div>
+                <h3>Sécurité</h3>
+                <p>La sécurité de nos équipes et de nos chantiers est notre priorité absolue.</p>
+            </div>
+        </div>
+        <div class="grid-block value-card">
+            <span class="value-num">03 /</span>
+            <div>
+                <h3>Engagement</h3>
+                <p>Respect des délais, transparence et entière satisfaction du client.</p>
+            </div>
+        </div>
+        <div class="grid-block value-card">
+            <span class="value-num">04 /</span>
+            <div>
+                <h3>Durabilité</h3>
+                <p>Des constructions éco-responsables pour un avenir meilleur.</p>
+            </div>
+        </div>
+
+        <!-- ONGLET AJOUTÉ : NOS RÉALISATIONS -->
+        <div id="realisations" class="section-header">Onglet // Nos Réalisations</div>
+        
+        <div class="grid-block project-card">
+            <div class="project-img" style="background-color: #222;"></div>
+            <div class="project-details">
+                <h4>Complexe Résidentiel Horizon</h4>
+                <p>Structure modulaire moderne haute performance.</p>
+            </div>
+        </div>
+        <div class="grid-block project-card">
+            <div class="project-img" style="background-color: #333;"></div>
+            <div class="project-details">
+                <h4>Siège Corporatif Atlas</h4>
+                <p>Architecture d'avant-garde à forte efficacité énergétique.</p>
+            </div>
+        </div>
+
+        <!-- ONGLET AJOUTÉ : AVIS CLIENTS & RETOURS -->
+        <div id="avis" class="section-header">Onglet // Avis &amp; Retours Clients</div>
+
+        <div class="grid-block review-card">
+            <p class="review-text">"La rigueur d'exécution d'Atlas sur notre dernier chantier d'infrastructure a été exemplaire. Les délais ont été respectés au jour près."</p>
+            <div class="review-author">
+                Direction Technique I.B.
+                <span>Projet Industriel — 2025</span>
+            </div>
+        </div>
+        <div class="grid-block review-card">
+            <p class="review-text">"Un partenaire transparent du début à la fin. Les solutions durables proposées ont apporté une vraie valeur ajoutée au projet."</p>
+            <div class="review-author">
+                Cabinet d'Architecture K.M.
+                <span>Superstructure Résidentielle — 2026</span>
+            </div>
+        </div>
+
+        <!-- PIED DE PAGE TECHNIQUE AVEC COORDONNÉES DE L'AFFICHE -->
+        <footer id="contact" class="grid-block">
+            <div class="footer-col">
+                <h5>Siège</h5>
+                <p>Atlas Global Construction</p>
+                <p>Ouagadougou, Burkina Faso</p>
+            </div>
+            <div class="footer-col">
+                <h5>Lignes Directes</h5>
+                <a href="tel:+22654364310">+226 54 36 43 10</a>
+                <a href="tel:+22605314137">+226 05 31 41 37</a>
+            </div>
+            <div class="footer-col">
+                <h5>Email</h5>
+                <a href="mailto:atlas.globalconstruction.bf@gmail.com">atlas.globalconstruction.bf@gmail.com</a>
+            </div>
+            <div class="footer-col">
+                <h5>Spécifications</h5>
+                <p>Style : International Typographic Style</p>
+                <p>© 2026 Atlas GC.</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
